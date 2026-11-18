@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投行信息速览</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">速览</div>
+    <div><span class="name">投行信息速览</span><span class="sub">审核状态 · 辅导 · 保代 · 人脉</span></div>
+  </div>
+  <div class="search"><span class="ico">🔍</span><input id="search" type="text" placeholder="搜索发行人 / 保荐机构 / 状态…"></div>
+</header>
+
+<div class="wrap">
+  <nav class="tabs">
+    <button class="tab active" data-tab="audit">审核状态 <span class="cnt" id="cnt-audit"></span></button>
+    <button class="tab" data-tab="tutoring">项目辅导 <span class="cnt" id="cnt-tutoring"></span></button>
+    <button class="tab" data-tab="sponsor">保代变更 <span class="cnt" id="cnt-sponsor"></span></button>
+    <button class="tab" data-tab="renmai">人脉检索 <span class="cnt" id="cnt-renmai"></span></button>
+  </nav>
+
+  <!-- 审核状态总览 -->
+  <section class="panel active" id="panel-audit">
+    <div class="panel-head">
+      <h2>审核状态总览</h2>
+      <span class="hint">IPO / 再融资 / 并购重组 · 数据源：见微项目库</span>
+    </div>
+    <div class="sub-tabs" id="sub-tabs"></div>
+    <div class="card"><div class="table-scroll"><table id="audit-table"></table></div></div>
+    <div class="src-bar" id="src-bar"></div>
+  </section>
+
+  <!-- 项目辅导 -->
+  <section class="panel" id="panel-tutoring">
+    <div class="panel-head">
+      <h2>项目辅导进度</h2>
+      <span class="hint">拟上市公司辅导备案追踪</span>
+    </div>
+    <div class="card">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>拟上市公司</th><th>保荐券商</th><th>辅导阶段</th><th>备案日期</th><th>数据源</th></tr></thead>
+          <tbody id="list-tutoring"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 保代变更 -->
+  <section class="panel" id="panel-sponsor">
+    <div class="panel-head">
+      <h2>保荐代表人变更</h2>
+      <span class="hint">新增 / 转所 / 离职</span>
+    </div>
+    <div class="card">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>保代</th><th>所属券商</th><th>变更类型</th><th>变更日期</th></tr></thead>
+          <tbody id="list-sponsor"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 人脉检索 -->
+  <section class="panel" id="panel-renmai">
+    <div class="panel-head">
+      <h2>人脉检索</h2>
+      <span class="hint">人 → 项目 → 共事的人</span>
+    </div>
+    <div class="rm-bar">
+      <input type="file" id="rm-file" accept=".xlsx,.xls" multiple style="display:none">
+      <button class="rm-btn" onclick="document.getElementById('rm-file').click()">📂 选择 Excel 文件（可多选）</button>
+      <span class="rm-status" id="rm-status">未加载数据</span>
+      <div class="rm-search">
+        <input id="rm-search" type="text" placeholder="输入人名检索…" autocomplete="off">
+        <div class="dropdown" id="rm-dropdown"></div>
+      </div>
+    </div>
+    <div id="rm-empty" class="rm-empty">请先选择 Excel 文件（HTTP 服务器打开可自动加载）。</div>
+    <div id="rm-result"></div>
+  </section>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head" id="drawer-head"></div>
+  <div class="drawer-body" id="drawer-body"></div>
+</aside>
+
+<script src="xlsx.full.min.js"></script>
+<script src="data/audit.js"></script>
+<script src="data/tutoring.js"></script>
+<script src="data/sponsors.js"></script>
+<script src="app.js"></script>
+<script src="renmai.js"></script>
+</body>
+</html>
